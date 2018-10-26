@@ -22,7 +22,7 @@ module.exports = Element.extend({
                 'externalResourcesRequired',
                 'transform'
             ]
-        ]
+        ];
 
         Element.constructor.apply(this, arguments);
     }
