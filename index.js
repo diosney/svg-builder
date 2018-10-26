@@ -2,10 +2,23 @@
 
 var elements = require('./elements/');
 
-function SvgBuilder() {
+function SvgBuilder(optOptions) {
+    this.options = optOptions || {};
 
-    this.root = '<svg height="100" width="100" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">';
+  this.options.base = (!this.options.base)
+                      ? '<svg height="100" width="100" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">'
+                      : this.options.base.replace('<\/svg>','');
+
+    this.root = this.options.base;
     this.elements = [];
+
+    if (this.options.height) {
+      this.height(this.options.height);
+    }
+
+    if (this.options.width) {
+      this.width(this.options.width);
+    }
 
     function formatRoot(name, value) {
       /* jshint -W040 */
@@ -45,8 +58,8 @@ function SvgBuilder() {
     };
 
 }
-SvgBuilder.prototype.newInstance = function() {
-  return new SvgBuilder();
+SvgBuilder.prototype.newInstance = function(options) {
+  return new SvgBuilder(options);
 };
 
 SvgBuilder.prototype.reset = function() {
